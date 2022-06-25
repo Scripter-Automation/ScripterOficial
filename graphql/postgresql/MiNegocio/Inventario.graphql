@@ -1,0 +1,108 @@
+
+type Inventario {
+  MiNegocioID: ID!
+  id: ID
+  inserted_at: DateTime
+  updated_at: DateTime
+  Categorias: [Categoria]
+  Articulos: [Articulo]
+}
+
+type Articulo {
+  CantidadDescartadas: Int
+  CantidadDisponible: Int
+  CantidadEnMantenimiento: Int
+  CantidadEnUso: Int
+  CantidadTotal: Int
+  Description: String!
+  InventarioID: ID!
+  Marca: String
+  Nombre: String!
+  RequisicionID: ID
+  id: ID
+  inserted_at: DateTime
+  updated_at: DateTime
+  Categoria: Categoria!
+    @materializer(
+      query:"getCategoriaByArticuloID",
+      arguments:[{name: "ArticuloID", field: "id"}]
+    )
+  Notas: [Nota]
+    @materializer(
+      query:"getNotasByArticuloID",
+      arguments:[{name: "ArticuloID", field: "id"}]
+    )
+  Ventas: [Venta]
+    @materializer(
+      query:"getVentasByArticuloID",
+      arguments:[{name: "ArticuloID", field: "id"}]
+    )
+  Publicaciones: [Publicacion]
+    @materializer(
+      query:"getPublicacionesByArticleID",
+      arguments:[{name: "ArticuloID", field: "id"}]
+    )
+  Empleados: [Empleado]
+    @materializer(
+      query:"getEmpleadosByArticleID",
+      arguments:[{name: "ArticuloID", field: "id"}]
+    )
+}
+
+type Categoria {
+  ArticuloID: ID
+  Description: String
+  InventarioID: ID!
+  Nombre: String!
+  id: ID
+  inserted_at: DateTime
+  updated_at: DateTime
+}
+
+type Query {
+    getNotasByArticuloID(ArticuloID:ID!): [Nota]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+        SELECT * FROM Nota WHERE ArticuloID = $1
+      """
+      configuration: "postgresql_config"
+    )
+  getPublicacionesByArticleID(ArticuloID:ID!): [Publicacion]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+        SELECT * FROM Publicacion WHERE ArticuloID = $1
+      """
+      configuration: "postgresql_config"
+    )
+  getVentasByArticuloID(ArticuloID:ID!): [Venta]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+        SELECT * FROM Venta WHERE ArticuloID = $1
+      """
+      configuration: "postgresql_config"
+    )
+  getCategoriaByArticuloID(ArticuloID:ID!): Categoria!
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+        SELECT * FROM Categoria WHERE ArticuloID = $1 LIMIT 1
+      """
+      configuration: "postgresql_config"
+    )
+  getEmpleadosByArticleID(ArticuloID:ID!): [Empleado]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+        SELECT * FROM Empleado WHERE ArticuloID = $1
+      """
+      configuration: "postgresql_config"
+    )
+}

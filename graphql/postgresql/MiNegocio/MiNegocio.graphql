@@ -1,0 +1,14 @@
+type MiNegocio {
+  NegocioID: ID!
+  id: ID
+  inserted_at: DateTime
+  updated_at: DateTime
+  Inventario: Inventario
+  Empleados: [Empleado]
+  Notas: [Nota]
+  CRM: CRM
+  Asistencia: Asistencia
+  Indicadores: Indicadores
+  Requisiciones: [Requisicion]
+  Clientes: [Cliente]
+}

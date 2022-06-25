@@ -1,0 +1,14 @@
+type Nota {
+  ArticuloID: ID
+  ClienteID: ID
+  IndicadorID: ID
+  JuntaID: ID
+  MiNegocioID: ID
+  RequisicionID: ID
+  Texto: String
+  Tipo: String!
+  Titulo: String!
+  id: ID
+  inserted_at: DateTime
+  updated_at: DateTime
+}

@@ -1,0 +1,34 @@
+type Negocio {
+  Bio: String
+  Nombre: String!
+  Slogan: String
+  avatar_url: String
+  cover_url: String
+  id: ID
+  industria: String!
+  inserted_at: DateTime
+  sitioweb: String
+  teir: String!
+  updated_at: DateTime
+  verificado: Boolean
+  Usuarios: [User]
+  Productos: [Producto]
+  Publicaciones: [Publicacion]
+  Blog: Blog
+  Ventas: [Venta]
+  MiNegocio: MiNegocio 
+}
+
+
+
+
+
+type Blog {
+  NegocioID: ID
+  UserID: ID
+  id: ID
+  inserted_at: DateTime
+  updated_at: DateTime
+  Articulos: [Publicacion]
+}
+

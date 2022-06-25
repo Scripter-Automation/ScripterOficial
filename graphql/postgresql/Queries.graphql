@@ -1,0 +1,205 @@
+type Query {
+  getArticuloList: [Articulo]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "Articulo"
+      configuration: "postgresql_config"
+    )
+  """
+  This query is an example of how to simply paginate your responses.
+  """
+  getPaginatedArticuloList(first: Int!, after: Int!): [Articulo]
+    @dbquery(
+      type: "postgresql"
+      query: """
+      select * from "public"."Articulo" limit $1 offset $2
+      """
+      configuration: "postgresql_config"
+    )
+  """
+  In this example, a single query parameter is passed. If the request to the DB will
+  return at most one value you can remove the square brackets from the result.
+  """
+  getArticuloByRequisicionID(requisicionID: ID!): [Articulo]
+    @dbquery(
+      type: "postgresql"
+      query: """
+      select * from "public"."Articulo" where "RequisicionID" = $1
+      """
+      configuration: "postgresql_config"
+    )
+  """
+  In this example, two query parameters are passed. If the request to the DB will
+  return at most one value you can remove the square brackets from the result.
+  """
+  getArticuloByRequisicionIDAndCantidadDescartadas(
+    RequisicionID: ID!
+    CantidadDescartadas: Int!
+  ): [Articulo]
+    @dbquery(
+      type: "postgresql"
+      query: """
+      select * from "public"."Articulo" where "RequisicionID" = $1 and "CantidadDescartadas" = $2
+      """
+      configuration: "postgresql_config"
+    )
+  getAsistenciaList: [Asistencia]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "Asistencia"
+      configuration: "postgresql_config"
+    )
+  getBlogList: [Blog]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "Blog"
+      configuration: "postgresql_config"
+    )
+  getCRMList: [CRM]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "CRM"
+      configuration: "postgresql_config"
+    )
+  getCategoriaList: [Categoria]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "Categoria"
+      configuration: "postgresql_config"
+    )
+  getClienteList: [Cliente]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "Cliente"
+      configuration: "postgresql_config"
+    )
+  getComentariosList: [Comentarios]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "Comentarios"
+      configuration: "postgresql_config"
+    )
+  getEmpleadoList: [Empleado]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "Empleado"
+      configuration: "postgresql_config"
+    )
+  getIndicadoresList: [Indicadores]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "Indicadores"
+      configuration: "postgresql_config"
+    )
+  getInventarioList: [Inventario]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "Inventario"
+      configuration: "postgresql_config"
+    )
+  getJuntaList: [Junta]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "Junta"
+      configuration: "postgresql_config"
+    )
+  getLikesList: [Likes]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "Likes"
+      configuration: "postgresql_config"
+    )
+  getMiNegocioList: [MiNegocio]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "MiNegocio"
+      configuration: "postgresql_config"
+    )
+  getNegocioList: [Negocio]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "Negocio"
+      configuration: "postgresql_config"
+    )
+  getNotaList: [Nota]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "Nota"
+      configuration: "postgresql_config"
+    )
+  
+  getByArticuloID(ArticuloID:ID!): [Venta]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+        SELECT * FROM Articulo WHERE ArticuloID = $1
+      """
+      configuration: "postgresql_config"
+    )
+  getProductoList: [Producto]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "Producto"
+      configuration: "postgresql_config"
+    )
+  getProfileList: [Profile]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "Profile"
+      configuration: "postgresql_config"
+    )
+  getPublicacionList: [Publicacion]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "Publicacion"
+      configuration: "postgresql_config"
+    )
+  getRateingList: [Rateing]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "Rateing"
+      configuration: "postgresql_config"
+    )
+  getReporteList: [Reporte]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "Reporte"
+      configuration: "postgresql_config"
+    )
+  getRequisicionList: [Requisicion]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "Requisicion"
+      configuration: "postgresql_config"
+    )
+  getVentaList: [Venta]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "Venta"
+      configuration: "postgresql_config"
+    )
+}
+

@@ -1,0 +1,13 @@
+type Requisicion {
+  Aprobado: Boolean
+  Comprado: Boolean
+  EnVentaPorSitio: Boolean
+  MiNegocioID: ID!
+  Recibido: Boolean
+  id: ID
+  inserted_at: DateTime
+  updated_at: DateTime
+  Usuario: User
+  Articulos: [Articulo]!
+  Notas: [Nota]
+}

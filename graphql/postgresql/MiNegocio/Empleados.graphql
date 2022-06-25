@@ -1,0 +1,14 @@
+
+type Empleado {
+  Activo: Boolean!
+  Apellido: String!
+  ArticuloID: ID
+  Bloqueado: Boolean
+  Certificacciones_url: String
+  MiNegocioID: ID!
+  Nombre: String!
+  ReporteID: ID
+  id: ID
+  inserted_at: DateTime
+  updated_at: DateTime
+}

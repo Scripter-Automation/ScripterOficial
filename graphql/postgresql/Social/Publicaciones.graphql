@@ -1,0 +1,135 @@
+type Publicacion {
+  ArticuloID: ID
+  NegocioID: ID
+  UserID: ID
+  File_url: String
+  ProductoID: ID
+  Texto: String
+  Tipo: String!
+  Titulo: String!
+  id: ID
+  inserted_at: DateTime!
+  updated_at: DateTime!
+  Usuario: User
+    @materializer(
+      query:"getUserByID",
+      arguments:[{name: "UserID", field: "UserID"}]
+    )
+  Comentarios: [Comentarios]
+    @materializer(
+      query:"getComentariosByPublicacionID",
+      arguments:[{name: "PublicacionID", field: "id"}]
+    )
+  Likes: [Likes]
+    @materializer(
+      query:"getLikesByPublicacionID",
+      arguments:[{name: "PublicacionID", field: "id"}]
+    )
+  Rateing: [Rateing]
+    @materializer(
+      query:"getRateingByPublicacionID",
+      arguments:[{name: "PublicacionID", field: "id"}]
+    )
+  Ventas: [Venta]
+    @materializer(
+      query:"getVentasByPublicacionID",
+      arguments:[{name: "PublicacionID", field: "id"}]
+    )
+}
+
+type Rateing {
+  Usuario: User
+  ProductoID: ID
+  PublicacionID: ID
+  Rateing: Int
+  id: ID
+  inserted_at: DateTime
+  updated_at: DateTime
+}
+
+type Comentarios {
+  Usuario: User
+  PublicacionID: ID!
+  Texto: String!
+  UserId: ID!
+  id: ID
+  inserted_at: DateTime
+  updated_at: DateTime
+}
+
+
+
+
+type Likes {
+  Like: Boolean!
+  PublicacionID: ID!
+  Usuario: User
+  User: ID!
+  id: ID
+  inserted_at: DateTime
+  updated_at: DateTime
+}
+
+type Mutation {
+  createPost(
+    Texto: String
+    Tipo: String!
+    Titulo: String!
+    ArticuloID: ID
+    NegocioID: ID
+    UserID: String!
+    File_url: String
+    ProductoID: ID
+
+  ): Publicacion
+      @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "Publicacion"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+}
+
+type Query {
+    getComentariosByPublicacionID(PublicacionID:ID!): [Comentarios]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+        SELECT * FROM Comentarios WHERE PublicacionID = $1
+      """
+      configuration: "postgresql_config"
+    )
+
+    getLikesByPublicacionID(PublicacionID:ID!): [Likes]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+        SELECT * FROM Likes WHERE PublicacionID = $1
+      """
+      configuration: "postgresql_config"
+    )
+
+    getRateingByPublicacionID(PublicacionID:ID!): [Rateing]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+        SELECT * FROM Rateing WHERE PublicacionID = $1
+      """
+      configuration: "postgresql_config"
+    )
+
+    getVentasByPublicacionID(PublicacionID:ID!): [Venta]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+        SELECT * FROM Venta WHERE PublicacionID = $1
+      """
+      configuration: "postgresql_config"
+    )
+
+}

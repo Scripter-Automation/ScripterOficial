@@ -1,0 +1,20 @@
+schema @sdl(files: ["postgresql/postgresql.graphql"
+,"postgresql/Mutations.graphql"
+,"postgresql/Queries.graphql"
+,"postgresql/MiNegocio/MiNegocio.graphql"
+,"postgresql/MiNegocio/Asistencia.graphql"
+,"postgresql/MiNegocio/CRM.graphql"
+,"postgresql/MiNegocio/Empleados.graphql"
+,"postgresql/MiNegocio/Indicadores.graphql"
+,"postgresql/MiNegocio/Inventario.graphql"
+,"postgresql/MiNegocio/Notas.graphql"
+,"postgresql/MiNegocio/Requisiciones.graphql"
+,"postgresql/Social/Publicaciones.graphql"
+,"postgresql/Users/Blog.graphql"
+,"postgresql/Users/Negocio.graphql"
+,"postgresql/Users/Productos.graphql"
+,"postgresql/Users/Users.graphql"
+,"postgresql/Users/Ventas.graphql"
+]) {
+  query: Query
+}

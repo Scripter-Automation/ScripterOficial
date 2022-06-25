@@ -1,0 +1,16 @@
+type Producto {
+  ArticuloID: ID
+  Cantidad: Int
+  Categoria: Categoria!
+  Description: String!
+  Devoluciones: Int
+  Imagen_url: String!
+  NegocioID: ID
+  Nombre: String!
+  Precio: Float
+  id: ID
+  inserted_at: DateTime
+  updated_at: DateTime
+  Ventas: [Venta]
+  Publicacion: [Publicacion]
+}

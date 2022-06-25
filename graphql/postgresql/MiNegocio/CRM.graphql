@@ -1,0 +1,37 @@
+
+type CRM {
+  MiNegocioID: ID!
+  id: ID
+  inserted_at: DateTime
+  updated_at: DateTime
+  Clientes: [Cliente]
+}
+
+
+type Cliente {
+  Apellido: String!
+  CRMID: ID!
+  CantidadDeVentas: Int
+  DiasDesdeUltimoContacto: Int
+  DineroGenerado: Int
+  Direccion: String!
+  Nombre: String!
+  Telefono: Int!
+  id: ID
+  inserted_at: DateTime
+  updated_at: DateTime
+  Notas: [Nota]
+  Juntas: [Junta]
+}
+
+type Junta {
+  ClienteID: ID!
+  Duracion: Int
+  Presencial: Boolean
+  Ubicacion: String
+  VideoLlamada_url: String
+  id: ID
+  inserted_at: DateTime
+  updated_at: DateTime
+  Notas: [Nota]
+}

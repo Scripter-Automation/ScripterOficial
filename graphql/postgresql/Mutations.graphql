@@ -1,0 +1,61 @@
+type Mutation {
+  """
+  In this mutation example you can see how to do a mutation to insert data in the database.
+  """
+  insertReporte(
+    HorasSabado: Int!
+    AsistenciaID: ID!
+    HorasDomingo: Int!
+    HorasLunes: Int!
+    Sabado: Boolean!
+    Martes: Boolean!
+    HorasViernes: Int!
+    Jueves: Boolean!
+    Viernes: Boolean!
+    Lunes: Boolean!
+    updated_at: DateTime
+    Miercoles: Boolean!
+    Domingo: Boolean!
+    HorasMartes: Int!
+    HorasJueves: Int!
+    HorasMiercoles: Int!
+    inserted_at: DateTime
+  ): Reporte
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "Reporte"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  """
+  In this mutation example you can see how to do a mutation to delete data from the database.
+  """
+  deleteReporte(
+    HorasSabado: Int!
+    AsistenciaID: ID!
+    HorasDomingo: Int!
+    Sabado: Boolean!
+    Martes: Boolean!
+    HorasViernes: Int!
+    Jueves: Boolean!
+    Viernes: Boolean!
+    Lunes: Boolean!
+    updated_at: DateTime
+    Miercoles: Boolean!
+    HorasLunes: Int!
+    id: ID!
+    Domingo: Boolean!
+    HorasMartes: Int!
+    HorasJueves: Int!
+    HorasMiercoles: Int!
+    inserted_at: DateTime
+  ): Reporte
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "Reporte"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+}

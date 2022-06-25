@@ -1,0 +1,46 @@
+type Asistencia {
+  MiNegocioID: ID!
+  id: ID
+  inserted_at: DateTime
+  updated_at: DateTime
+  Reportes: [Reporte]
+    @materializer(
+      query:"getReporte",
+      arguments: [{name: "AsistenciaID", field: "id"}]
+    )
+  Usuario: User
+}
+
+
+type Reporte {
+  AsistenciaID: ID!
+  Domingo: Boolean
+  HorasDomingo: Int
+  HorasJueves: Int
+  HorasLunes: Int
+  HorasMartes: Int
+  HorasMiercoles: Int
+  HorasSabado: Int
+  HorasViernes: Int
+  Jueves: Boolean
+  Lunes: Boolean
+  Martes: Boolean
+  Miercoles: Boolean
+  Sabado: Boolean
+  Viernes: Boolean
+  id: ID
+  inserted_at: DateTime
+  updated_at: DateTime
+  Empleado: [Empleado]
+}
+
+type Query {
+  getReporte(AsistenciaID:ID!): [Reporte]
+    @dbquery(
+      type: "postgresql"
+      query: """
+        SELECT * FROM Reporte WHERE AsistenciaID = $1
+      """
+      configuration: "postgresql_config"
+    )
+}

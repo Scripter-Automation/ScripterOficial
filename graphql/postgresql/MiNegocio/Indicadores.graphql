@@ -1,0 +1,6 @@
+type Indicadores {
+  MiNegocioID: ID!
+  id: ID
+  inserted_at: DateTime
+  updated_at: DateTime
+}

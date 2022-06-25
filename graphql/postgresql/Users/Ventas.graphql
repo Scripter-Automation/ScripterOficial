@@ -1,0 +1,16 @@
+type Venta {
+  ArticuloID: ID
+  Cantidad: Int!
+  CiudadDeEnvio: String!
+  CodigoPostal: Int!
+  DireccionAlterna: String
+  DireccionDeEnvio: String!
+  Precio: Float!
+  ProductoID: ID
+  PublicacionID: ID
+  id: ID
+  inserted_at: DateTime
+  updated_at: DateTime
+  UsuarioVendedor: User
+  UsuarioComprador: User
+}
