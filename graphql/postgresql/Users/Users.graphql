@@ -2,7 +2,12 @@ type User {
   id: ID
   email: String!
   role: String
-
+  Profile: Profile
+  Negocio: Negocio
+    @materializer(
+      query:"getUsersNegocio"
+      arguments:[{name:"id", field:"id"}]
+    )
 }
 
 type Profile {
@@ -97,6 +102,16 @@ type Query{
       schema:"auth"
       query: """
         SELECT id, email, role FROM users WHERE id = $1
+      """
+      configuration: "postgresql_config"
+    )
+
+  getUsersNegocio(id:ID!):Negocio
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+          select * from "Negocio" where "UserIDArray" @> array[$1]
       """
       configuration: "postgresql_config"
     )

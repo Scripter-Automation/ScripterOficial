@@ -10,6 +10,26 @@ export const CheckUserExist =  gql`
     }
 `
 
+export const GET_USERS_NEGOCIO = gql`
+    query MyQuery($id:ID!){
+        getUsersNegocio(id:$id){
+            Bio
+            Nombre
+            Slogan
+            avatar_url
+            cover_url
+            id
+            industria
+            inserted_at
+            sitioweb
+            teir
+            updated_at
+            verificado
+            UserIDArray
+        }
+    }
+`
+
 export const GET_FEED = gql`
     query MyQuery {
         getPublicacionList {

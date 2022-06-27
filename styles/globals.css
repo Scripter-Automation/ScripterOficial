@@ -9,4 +9,7 @@
     .sidebarButton{
         @apply bg-white w-full hover:bg-gray-50 hover:shadow
     }
+    .ActionBarButton{
+        @apply bg-transparent hover:bg-gray-200 text-black rounded-l-full w-1/5
+    }
 }

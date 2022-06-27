@@ -133,6 +133,9 @@ type Query {
       type: "postgresql"
       schema: "public"
       table: "Negocio"
+      query: """
+        select * from "Negocio"
+      """
       configuration: "postgresql_config"
     )
   getNotaList: [Nota]

@@ -11,17 +11,10 @@ type Negocio {
   teir: String!
   updated_at: DateTime
   verificado: Boolean
-  Usuarios: [User]
-  Productos: [Producto]
-  Publicaciones: [Publicacion]
-  Blog: Blog
-  Ventas: [Venta]
-  MiNegocio: MiNegocio 
+  UserIDArray: String
+
+
 }
-
-
-
-
 
 type Blog {
   NegocioID: ID

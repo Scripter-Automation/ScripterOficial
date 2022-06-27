@@ -12,7 +12,7 @@ type CostumList = {
 }
 
 type ListItem = {
-    children: ReactNode
+    children?: ReactNode
     Icon: ReactNode
     Hover: boolean
     text?:string

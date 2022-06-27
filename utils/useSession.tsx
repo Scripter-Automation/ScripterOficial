@@ -2,8 +2,9 @@ import { ApiError, Session } from "@supabase/supabase-js"
 import React, { useContext, createContext, useMemo } from "react"
 import { logout, signin, signup, supabase } from "./supabaseClient"
 import client from "../apollo-client"
-import {CheckUserExist} from "../graphql/Client/Queries"
+import {CheckUserExist, GET_USERS_NEGOCIO} from "../graphql/Client/Queries"
 import { useQuery } from "@apollo/client"
+import { parseString } from "./others"
 
 type LocalSession = string | Session | null | undefined | ApiError
 type SessionData = {
@@ -23,28 +24,45 @@ type Props ={
 
 export function SessionProvider({children}: Props){
 
-    const [sessionProvider, setSession] = React.useState<LocalSession>(supabase.auth.session())
+    const [sessionProvider, setSession] = React.useState(supabase.auth.session())
     const {data, refetch} = useQuery(CheckUserExist,{
         variables:{
             email:""
           }
     })
+    
+    const {data:UsersNegocio , refetch: UsersNegocioRefetch} = useQuery(GET_USERS_NEGOCIO,{
+        variables:{
+            id: sessionProvider?.user?.id
+        }
+    })
 
-
+    console.log("UserNegocio",UsersNegocio)
+    
+    
     React.useEffect(() => {
-      
+        
         supabase.auth.onAuthStateChange(() =>{
             setSession(supabase.auth.session())
         })
-    
-
+        
+        
     }, [])
+    
+    React.useMemo(()=>{
+
+        UsersNegocioRefetch({id: sessionProvider?.user?.id})
+        const array = parseString(UsersNegocio?.getUsersNegocio.UserIDArray)
+        console.log("Parsed string", array)
+      
+    },[sessionProvider])
 
     async function LogIn(email: string, password:string){
             const data =  await signin(email , password)
 
             if(!data.error){
-            setSession(data.session)
+                setSession(data.session)
+
             }else{
                 console.log(data.error)
             }
@@ -65,7 +83,7 @@ export function SessionProvider({children}: Props){
 
         if(data === null){
             console.log(data)
-            setSession(undefined)
+            setSession(null)
         }else(
             alert(data)
         )
@@ -86,7 +104,8 @@ export function SessionProvider({children}: Props){
         LogIn,
         SignUp,
         LogOut,
-        CheckUser
+        CheckUser,
+        UsersNegocio
     }
 
     return(

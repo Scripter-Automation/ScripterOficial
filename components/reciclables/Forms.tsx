@@ -18,7 +18,6 @@ type Input = {
 type Button = {
     text: string
     color: string
-    width: string
     type: "button" | "reset" | "submit" | undefined
     onClick?: ()=>void;
     href?: string
@@ -58,6 +57,7 @@ type InputBoolean = {
   onChange:(e:boolean)=>void
   FalseText:string
   TrueText:string
+  TextClass?:string
 }
 
 type InfoHover = {
@@ -65,27 +65,27 @@ type InfoHover = {
   children: ReactNode
 }
 
-export function ButtonLink({text, color, width, type, onClick, href, style, className}:Button) {
+export function ButtonLink({text, color, type, onClick, href, style, className}:Button) {
   return (
     <a style={{width:"auto"}} href={href}>
     <button
     style={style}
     onClick={onClick}
     type={type}
-    className={`bg-${color}-500 hover:bg-${color}-600  rounded p-2 w-${width} text-white text-lg ${className}`}
+    className={`bg-${color}-500 hover:bg-${color}-600  rounded p-2 text-white text-lg ${className}`}
     >{text}</button>
     </a>
     
   )
 }
 
-export function Button({text, color, width, type, onClick, style, className, icon}:Button) {
+export function Button({text, color, type, onClick, style, className, icon}:Button) {
   return (
     <button
     style={style}
     onClick={onClick}
     type={type}
-    className={`bg-${color}-500 hover:bg-${color}-600  rounded p-2 w-${width} text-white text-lg ${className}`}
+    className={`bg-${color}-500 hover:bg-${color}-600  rounded p-2 text-lg ${className}`}
     >
       {icon !== undefined ? 
         <div className='flex items-center justify-center'>
@@ -207,7 +207,7 @@ export function InputSelect({label, className, onChange, children, placeholder}:
 
 }
 
-export function InputBoolean({label, className, onChange, FalseText, TrueText}:InputBoolean){
+export function InputBoolean({label, className, onChange, FalseText, TrueText, TextClass}:InputBoolean){
   const [value, setValue] = React.useState<boolean>(false)
   const [side, setSide] = React.useState<string>("start")
 
@@ -226,14 +226,14 @@ export function InputBoolean({label, className, onChange, FalseText, TrueText}:I
     <div className='w-full flex flex-col p-1'>
       <label>{label}</label>
       <div className='flex justify-evenly'>
-        <Text>{FalseText}</Text>
+        <Text className={`${TextClass}`} >{FalseText}</Text>
           <div className={`m-2 border-4 border-gray-500 bg-gray-200 w-1/3 h-10 rounded-r-full rounded-l-full flex justify-${side}`}>
             <div 
             onClick={handleChange}
             className={`${className} w-3/5 rounded-full bg-blue-500 h-full hover:bg-blue-600`}
             ></div>
           </div>
-        <Text>{TrueText}</Text>
+        <Text className={`${TextClass}`} >{TrueText}</Text>
       </div>
     </div>
   )

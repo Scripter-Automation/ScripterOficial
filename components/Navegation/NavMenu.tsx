@@ -4,6 +4,7 @@ import { useSession } from '../../utils/useSession'
 import Avatar from '../reciclables/Avatar'
 import Item from './Item'
 import FaceIcon from '@mui/icons-material/Face';
+import { InputBoolean } from '../reciclables/Forms'
 
 export default function NavMenu() {
 
@@ -27,6 +28,7 @@ export default function NavMenu() {
         
         <div className={`w-64 px-2 absolute -right-2 top-12 ${display} bg-blue-500 rounded`}>
             <Item color="gray" onClick={()=>{}} icon={<Avatar large={false}></Avatar>}>Perfil</Item>
+            <Item color='blue' onClick={()=>{}} icon={<InputBoolean TextClass='text-sm' onChange={()=>{}} FalseText="Usuario" TrueText='Negocio' ></InputBoolean>}></Item>
             <Item color='gray' onClick={()=>{}} icon={<CogIcon className='icon text-gray-500'></CogIcon>}>Configuraciones</Item>
             <Item color="red" icon={<LogoutIcon className='icon text-red-500'></LogoutIcon>} onClick={LogOut}>Cerrar Sesión</Item>
         </div>

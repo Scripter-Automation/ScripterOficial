@@ -3,7 +3,7 @@ import React from 'react'
 type Props ={
     icon: JSX.Element
     onClick: ()=>void;
-    children: string
+    children?: string
     color: string
 }
 
