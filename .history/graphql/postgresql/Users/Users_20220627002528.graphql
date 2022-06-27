@@ -1,0 +1,129 @@
+type User {
+  id: ID
+  email: String!
+  role: String!
+  Profile: Profile
+    @materializer(
+      query:"getUsersProfile"
+      arguments:[{name:"id", field:"id"}]
+    )
+  Negocio: Negocio
+    @materializer(
+      query:"getUsersNegocio"
+      arguments:[{name:"id", field:"id"}]
+    )
+}
+
+type Profile {
+  UserID: ID
+  apellido: String!
+  avatar_url: String
+  cover_url: String
+  empleado: Boolean
+  id: ID
+  inserted_at: DateTime
+  job: String
+  nombre: String!
+  updated_at: DateTime
+  username: String!
+  Blog: Blog
+    @materializer(
+      query:"getUsersBlog"
+      arguments:[{name:"UserID", field:"UserID"}]
+    )
+  Publicaciones: [Publicacion]
+    @materializer(
+      query:"getUsersPublicaciones"
+      arguments:[{name:"UserID", field:"UserID"}]
+    )
+  Ventas:[Venta]
+    @materializer(
+      query:"getUsersVentas"
+      arguments:[{name:"UserID", field:"UserID"}]
+    )
+}
+
+type Mutation {
+  createProfile(
+    UserID: ID!
+    nombre: String!
+    apellido: String!
+    username: String!
+    empleado: Boolean!
+    job: String!
+    avatar_url: String
+    cover_url: String
+    updated_at: DateTime
+  ): Profile
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "Profile"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+
+}
+
+type Query{
+  getUsersPublicaciones(UserID:ID!):[Publicacion]
+    @dbquery(
+      type: "postgresql"
+      query: """
+      select * from Publicacion WHERE UserID = $1
+      """
+      configuration: "postgresql_config"
+    )
+  getUsersBlog(UserID:ID!):Blog
+    @dbquery(
+      type: "postgresql"
+      query: """
+            select * from Blog WHERE UserID = $1 limit 1
+      """
+      configuration: "postgresql_config"
+    )
+  getUsersVentas(UserID:ID!): [Venta]
+    @dbquery(
+      type: "postgresql"
+      query: """
+        SELECT * FROM  Venta WHERE UserID = $1
+      """
+      configuration: "postgresql_config"
+    )
+  getUsersByEmail(email:String): User
+    @dbquery(
+      type: "postgresql"
+      schema: "auth"
+      query: """
+        SELECT id, email, role  FROM users WHERE email = $1
+      """
+      configuration: "postgresql_config"
+
+    )
+  getUserByID(UserID:ID): User
+    @dbquery(
+      type: "postgresql"
+      schema:"auth"
+      query: """
+        SELECT id, email, role FROM users WHERE id = $1
+      """
+      configuration: "postgresql_config"
+    )
+   getUsersNegocio(id:ID!):Negocio
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+          select * from "Negocio" where "UserIDArray" @> array[$1]
+      """
+      configuration: "postgresql_config"
+    )
+  getUsersProfile(id:ID!):Profile
+    @dbquery(
+      type:"postgresql"
+      schema:"public"
+      query: """
+        select * from "Profile" where UserID = $1
+      """
+    )
+}
